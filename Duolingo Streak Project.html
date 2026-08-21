@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Duolingo Streak</title>
+
+    <style>
+      body {
+        background-color: lightgreen;
+      }
+
+      .streak-emoji {
+        font-size: 125px;
+        cursor: none;
+      }
+
+      .streak-text {
+        font-size: 30px;
+        color: grey;
+      }
+
+      .lesson {
+        font-size: 15px;
+        font-family: Arial;
+        color: black;
+        background-color: orange;
+        border-color: white;
+        border-radius: 10px;
+        padding: 5px 15px;
+        cursor: pointer;
+      }
+
+      .streak-freeze {
+        font-size: 15px;
+        font-family: Arial;
+        color: black;
+        background-color: cyan;
+        border-color: white;
+        border-radius: 10px;
+        padding: 5px 15px;
+        cursor: pointer;
+      }
+
+      .orange-text {
+        font-size: 40px;
+        color: orangered;
+        font-family: Algerian;
+        cursor: none;
+      }
+
+      .lesson-done {
+        font-size: 15px;
+        font-family: Arial;
+        color: black;
+        background-color: grey;
+        border-color: white;
+        border-radius: 10px;
+        padding: 5px 15px;
+        cursor: not-allowed;
+      }
+
+      .streak-freeze-emoji {
+        font-size: 25px;
+        color: blue;
+        font-family: Arial;
+        cursor: none;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="streak-emoji">👀</p>
+    <p class="streak-freeze-emoji"></p>
+
+    <p class="streak-text">550 Day Streak</p>
+
+    <button class="lesson" onclick="
+      streakAlive();
+      lessonDone();
+      orangeText();
+    ">Complete Lesson</button>
+
+    <button class="streak-freeze" onclick="
+      freezeStreak();
+    ">Equip Streak Freeze</button>
+
+    <script>
+      let streak = Number(localStorage.getItem('dailyStreak')) || 550;
+
+      displayStreak();
+
+      function lessonDone() {
+        streak ++;
+        displayStreak();
+
+        const lesson = document.querySelector('.lesson');
+        lesson.classList.add('lesson-done');
+      }
+
+      function displayStreak() {
+        const text = document.querySelector('.streak-text');
+        text.innerHTML = `${streak} Day Streak`;
+        JSON.stringify(localStorage.setItem('dailyStreak', streak));
+      }
+
+      function freezeStreak() {
+        const freeze = document.querySelector('.streak-freeze-emoji');
+        freeze.innerHTML = '❄️ Streak Freezed ❄️';
+      }
+
+      function streakAlive() {
+        const streakEmoji = document.querySelector('.streak-emoji');
+        streakEmoji.innerHTML = '🔥';
+      }
+
+      function orangeText() {
+        const orangeText = document.querySelector('.streak-text');
+        orangeText.classList.add('orange-text');
+      }
+    </script>
+
+  </body>
+</html>
